@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from nltk import classify
+from nltk import NaiveBayesClassifier
 import nltk
 from string import punctuation
 import re
@@ -30,7 +31,7 @@ def my_form_post():
     #remove stopwords    
     processed_doc1 = ' '.join([word for word in text_final.split() if word not in stop_words])
 
-    sa = SentimentIntensityAnalyzer()
+    sa = NaiveBayesClassifier()
     dd = sa.polarity_scores(text=processed_doc1)
     compound = round((1 + dd['compound'])/2, 2)
 
